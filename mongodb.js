@@ -15,8 +15,8 @@ MongoClient.connect(connectionUrl, {useNewUrlParser: true}, (err, client) => {
     console.log("Database connected successfully")
     const db = client.db(databaseName)
 
-    db.collection('users').findOne({
-        name:'Tabish'
+    db.collection('tasks').findOne({
+        _id: new ObjectID("5f0c41818deeaf0f549b3a4c")
     }, (err, user) => {
         if(err){
             return console.log('Unable to fetch Users')
@@ -24,7 +24,7 @@ MongoClient.connect(connectionUrl, {useNewUrlParser: true}, (err, client) => {
         console.log(user)
     })
 
-    db.collection('users').find({ age: 23 }).toArray((err, users) => {
+    db.collection('tasks').find({ completed: true }).toArray((err, users) => {
         if(err){
             return console.log('Unable to insert Users')
         }
