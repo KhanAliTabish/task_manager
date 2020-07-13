@@ -15,35 +15,29 @@ MongoClient.connect(connectionUrl, {useNewUrlParser: true}, (err, client) => {
     console.log("Database connected successfully")
     const db = client.db(databaseName)
 
-    db.collection('tasks').findOne({
+    db.collection('tasks').updateOne({
         _id: new ObjectID("5f0c41818deeaf0f549b3a4c")
-    }, (err, user) => {
-        if(err){
-            return console.log('Unable to fetch Users')
+    },{
+        $set: {
+            description: "doing somework from office"
         }
-        console.log(user)
+    }).then((result) => {
+        console.log(result)
+    }).catch((err) => {
+        console.log(err)
     })
 
-    db.collection('tasks').find({ completed: true }).toArray((err, users) => {
-        if(err){
-            return console.log('Unable to insert Users')
+    db.collection('users').updateMany({
+        age: 23
+    },{
+        $set: {
+            profession: "SDE-1"
         }
-        console.log(users)
+    }).then((result) => {
+        console.log(result)
+    }).catch((err) => {
+        console.log(err)
     })
 
-    // db.collection('tasks').insertMany([{
-    //     description:'learning nodeJs',
-    //     completed:true
-    // },{
-    //     name: 'Practicing DS and algo',
-    //     completed: false
-    // },{
-    //     description: 'Doing office work',
-    //     completed:true
-    // }], (err, result) => {
-    //     if(err){
-    //         return console.log('Unable to insert Users')
-    //     }
-    //     console.log(result.ops)
-    // })
+
 })
